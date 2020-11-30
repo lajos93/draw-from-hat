@@ -1,0 +1,41 @@
+
+<!-- Header -->
+<app-header></app-header>
+
+<!-- Header -->
+
+<!-- Body Start -->
+
+<div class="intro-container">
+    <div class="intro-text">
+        <h2 class="headline">Draw a name</h2>
+        <span>Draw a name from the “hat” or Start a new game.</span>
+    </div>
+    <img src="../../../../assets/Design_2.png"  />
+    
+</div>
+
+<div class="start-game-container">
+    <div class="text">
+        <span>Start Game</span>
+    </div>
+</div>
+
+<div class="or-container">
+    <span>
+        Or
+    </span>
+</div>
+
+
+<div class="list-container">
+    <div class="list-row" *ngFor="let game of games | keyvalue: returnZero">
+        <div class="info">
+            <span>{{game.value.name}}</span>
+        </div>
+        <div class="join-btn"><span>Join</span></div>
+    </div>
+</div>
+
+
+<!-- Body End -->

@@ -1,0 +1,44 @@
+.card-body{
+    background:#00baf7;
+    height: 100%;
+
+    .logo{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width:64px;
+            margin:8px;
+        }
+        margin:24px;
+        span{
+            color:#fff;
+            margin:8px;
+            font-size:22px;
+        }
+    }
+
+    label{
+        color:#fff;
+        font-size:16px;
+        margin-bottom:12px;
+    }
+    .form-container{
+        
+        .form-group{
+            width:100%;
+            margin-bottom:8px;
+            input{
+                border:2px solid #fff;
+                
+            }
+            
+
+        }
+        .btn-register{
+            border:2px solid #fff;
+            color:#fff;
+            width: 100%;
+        }
+    }
+}
