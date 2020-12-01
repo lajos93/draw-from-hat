@@ -4,6 +4,7 @@ import { FormControl,FormGroup,FormBuilder,Validators } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from '../_services/http.service'
+import { SharedDataService } from '../_services/_sharedData/shared-data.service'
 
 
 @Component({
@@ -18,10 +19,13 @@ export class HomeComponent implements OnInit {
   error = '';
   name = null;
 
+  tempStorage ={};
+
   constructor(
     private formBuilder: FormBuilder,
     private http:HttpClient,
     private request:HttpService,
+    private sharedDataService: SharedDataService,
     private router:Router
     ) { }
 
@@ -41,9 +45,10 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     this.request.register(this.f.name.value)
       .subscribe(
-        data => {
-          // Handle result
-          console.log(data)
+        result => {
+          this.tempStorage = {name:result.name};
+          let storageJson = JSON.stringify(this.tempStorage)
+          this.sharedDataService.changeMessage(storageJson);
         },
         error => {
           this.error = error;

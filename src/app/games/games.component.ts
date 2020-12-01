@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SharedDataService } from '../_services/_sharedData/shared-data.service'
+
 import { HttpService } from '../_services/http.service'
 import { Router } from '@angular/router'; 
 import { ActivatedRoute } from '@angular/router'
@@ -15,22 +17,33 @@ export class GamesComponent implements OnInit {
   submitted = false;
   games = {}
 
+  tempStorage = {}
+  
+
   constructor(
     private request:HttpService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    private sharedDataService: SharedDataService,
   ) { }
 
   
 
   ngOnInit(): void {
+
+    this.sharedDataService.currentMessage
+
+
     this.request.getServers()
       .subscribe(
         data => {
-          // Handle result
+          // Save data to the temp storage object
           
           this.games = data;
-          console.log(this.games);
+          this.tempStorage['servers']=data;
+          let storageJson = this.tempStorage;
+
+          this.sharedDataService.changeMessage(JSON.stringify(storageJson));
         },
         error => {
           this.error = error;
@@ -43,6 +56,7 @@ export class GamesComponent implements OnInit {
           // No errors, route to new page here
         }
       );
+      console.log('GAMES',this.tempStorage);
   }
 
   returnZero() {
@@ -50,11 +64,7 @@ export class GamesComponent implements OnInit {
     }
 
     openGame(i){
-      let data = this.games[i];
-      console.log(data);
-
-      this.router.navigate(['/games/' + i], { state: data });
-
+      this.router.navigate(['/games/' + i]);
   }
 
 

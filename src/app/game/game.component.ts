@@ -1,7 +1,9 @@
 import { Component, OnInit, } from '@angular/core';
 import { Router,ActivatedRoute,Params} from '@angular/router'; 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map,pluck } from 'rxjs/operators';
+
+import { SharedDataService } from '../_services/_sharedData/shared-data.service'
 
 import { HttpService } from '../_services/http.service'
 
@@ -11,38 +13,45 @@ import { HttpService } from '../_services/http.service'
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  state$: Observable<object>;
-  data = {};
+  currentID = null;
+  tempStorage = {};
+
   name = '';
   serverName = '';
   users = [];
+
   loading = false;
   error = false;
+
+
 
   constructor(
     public router: Router,
     private route: ActivatedRoute,
-    private request: HttpService
+    private request: HttpService,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit(): void {
-    this.state$ = this.route.paramMap
-      .pipe(map(() => window.history.state, ))
-  //console.log("params",this.route.params);
-//
-  //console.log('ddddddddddd',this.state$);
-  this.data = window.history.state;
 
-  //this.data = {"users":["userTest","userTest2","userTest3","userTest4","userTest5","user44"],"_id":"5fba989898977315b0dd60f2","name":"serverTest","__v":0};
-  this.users = this.data['users'];
-  this.serverName = this.data['name'];
+    //Page ID
+    this.currentID = this.route.snapshot.params['id'];
 
-  this.name = 'THISISGOOD';
+    //Data object
+    this.sharedDataService.currentMessage
+    .subscribe(
+      object => (
+        this.tempStorage= JSON.parse(object)
+    )); 
 
+  this.users = this.tempStorage['servers'][this.currentID]['users'];
+  this.serverName = this.tempStorage['servers'][this.currentID]['name'];
+
+  this.name=this.tempStorage['name'];
   }
 
   joinServer(){
-    this.request.joinServer('ddddddddddddddd',this.serverName)
+    this.request.joinServer(this.name,this.serverName)
     .subscribe(
       data => {
         // Handle result
