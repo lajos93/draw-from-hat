@@ -1,6 +1,6 @@
 
 <!-- Header -->
-<app-header></app-header>
+<!--  --> <app-header></app-header> 
 
 <!-- Header -->
 
@@ -15,7 +15,7 @@
     
 </div>
 
-<div class="start-game-container">
+<div class="btn-container">
     <div class="text">
         <span>Start Game</span>
     </div>
@@ -29,13 +29,17 @@
 
 
 <div class="list-container">
-    <div class="list-row" *ngFor="let game of games | keyvalue: returnZero">
+    <div class="list-row" *ngFor="let game of games | keyvalue: returnZero let i = index" [attr.data-index]="i">
         <div class="info">
             <span>{{game.value.name}}</span>
         </div>
-        <div class="join-btn"><span>Join</span></div>
+        <button class="join-btn btn" (click)="openGame(i)" >Join</button>
     </div>
 </div>
+
+
+
+
 
 
 <!-- Body End -->

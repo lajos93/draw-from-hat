@@ -49,8 +49,11 @@ export class GamesComponent implements OnInit {
     return 0
     }
 
-  openGame(){
-   // this.router.navigate(['/games/:name'], {relativeTo: this.route});
+    openGame(i){
+      let data = this.games[i];
+      console.log(data);
+
+      this.router.navigate(['/games/' + i], { state: data });
 
   }
 

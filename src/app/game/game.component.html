@@ -1,1 +1,24 @@
-<p>game works!</p>
+<!-- Header -->
+<!--  --> <app-header></app-header> 
+
+<!-- Header -->
+
+<!-- Body Start -->
+
+<div class="btn-container" (click)="joinServer()">
+    <div class="text">
+        <span>Join Game</span>
+    </div>
+</div>
+
+<div class="list-container">
+    <div class="list-row" *ngFor="let user of users">
+        <div class="info">
+            <span>{{user}}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Body End -->
+
+ 

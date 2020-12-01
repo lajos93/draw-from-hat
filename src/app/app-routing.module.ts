@@ -8,6 +8,7 @@ import { GameComponent } from './game/game.component';
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'games', component: GamesComponent},
+  { path: 'games/:id', component: GameComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

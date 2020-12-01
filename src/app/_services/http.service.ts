@@ -15,4 +15,8 @@ export class HttpService {
   getServers() {
     return this.http.get<any>(`http://localhost:4000/getServers`)
    }
+
+   joinServer(name: string, server: string) {
+    return this.http.put<any>(`http://localhost:4000/joinServer`, { user:name, server:server})
+   }
 }
