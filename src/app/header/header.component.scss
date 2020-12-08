@@ -1,7 +1,18 @@
 mat-toolbar{
+    justify-content: space-between;
     background:#00baf7;
     img{
         width: 32px;
         margin-right: 8px;
+    }
+    .profile{
+        img{
+            background: grey;
+            border-radius: 16px;
+            margin-top: 0px;
+            border: 1px solid #cdcdcd;
+            margin-right: 0px;
+        }
+   
     }
 }

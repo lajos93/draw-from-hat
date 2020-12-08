@@ -1,0 +1,25 @@
+<div class="card-body" >
+
+
+    <div class="logo">
+        <img src="../../../../assets/logo_6.png"  />
+        <span>DrawFromHat</span>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="register()"> 
+        <label for="name">Provide your name</label>
+        <div class="form-container">
+            <div class="form-group">
+                
+                <input type="text"  formControlName="name" class="form-control" />
+
+            </div>
+            <button [disabled]="loading" class="btn btn-register">
+                <span *ngIf="loading"  class="spinner-border spinner-border-sm mr-1"></span>
+                Add
+            </button>
+        </div>
+    </form>
+</div>
+
+

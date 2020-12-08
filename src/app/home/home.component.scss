@@ -1,44 +1,65 @@
-.card-body{
-    background:#00baf7;
-    height: 100%;
-
-    .logo{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-            width:64px;
-            margin:8px;
-        }
-        margin:24px;
-        span{
-            color:#fff;
-            margin:8px;
-            font-size:22px;
-        }
+.intro-container{
+    display:flex;
+    justify-content: center;
+    .intro-text{
+        width:70%;
+        margin:16px;
     }
-
-    label{
-        color:#fff;
-        font-size:16px;
-        margin-bottom:12px;
+    img{
+        width: 89px;
+        height:82px;
+        margin:16px;
     }
-    .form-container{
+}
+
+.btn-container{
+    .text{
+        background: #00baf7;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        margin: 20px;
+        padding: 15px;
+        border-radius: 25px;
+        font-weight: 700;
+    }
+}
+
+.or-container{
+    text-align: center;
+    span{
         
-        .form-group{
-            width:100%;
-            margin-bottom:8px;
-            input{
-                border:2px solid #fff;
-                
-            }
-            
+        color: #000;
+        font-size: 20px;
+    }
+}
+
+.list-container{
+    //height: 100%;
+    box-shadow: 5px 5px 26px 0px rgba(50, 50, 50, 0.1);
+    border-radius: 10px;
+    margin: 20px;
+    .list-row{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        border-bottom: 1px solid #ccc;
+        padding:16px;
+        border-radius: 5px;
+        .info{
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .join-btn{
+            border-radius: 18px;
+            background: #00baf7;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
 
         }
-        .btn-register{
-            border:2px solid #fff;
-            color:#fff;
-            width: 100%;
-        }
     }
+
 }

@@ -5,18 +5,31 @@ import { Subject, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedDataService {
+  
+  messageSource = new BehaviorSubject<any>(null);
+  currentMessage = this.messageSource.asObservable();
+  
   constructor(){
 
   }
-  //Using any
-  public editDataDetails: any = [];
-  public subject = new Subject<any>();
-  private messageSource = new BehaviorSubject(this.editDataDetails);
-  currentMessage = this.messageSource.asObservable();
 
-  changeMessage(message: string) {
-  this.messageSource.next(message)
+  changeMessage(message: string){
+    this.messageSource.next(message);
   }
-  
-  
+
+  prepareData(data,procedure = null){
+
+    if(procedure == 'quantify'){
+      for (let i  = 0; i < data.length; i++) {
+        data[i]["i"] = i;
+      }
+    }
+
+    return data;
+  }
+
+  retrieveData(data){
+    return data;
+  }
+
 }

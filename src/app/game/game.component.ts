@@ -13,17 +13,20 @@ import { HttpService } from '../_services/http.service'
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  state$: Observable<object>;
   currentID = null;
-  tempStorage = {};
+  state:string;
+  i:number;
 
-  name = '';
-  serverName = '';
+  name = null;
+  serverName = null;
   users = [];
+  message:string;
 
   loading = false;
   error = false;
 
-
+  gameData;
 
   constructor(
     public router: Router,
@@ -34,28 +37,28 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //Page ID
-    this.currentID = this.route.snapshot.params['id'];
+    //Server data
+    this.sharedDataService.currentMessage.subscribe(message=>this.gameData = message);
+    
+      this.state$ = this.route.paramMap
+       .pipe(map(() => window.history.state, ))
+       this.state = window.history.state;
 
-    //Data object
-    this.sharedDataService.currentMessage
-    .subscribe(
-      object => (
-        this.tempStorage= JSON.parse(object)
-    )); 
-
-  this.users = this.tempStorage['servers'][this.currentID]['users'];
-  this.serverName = this.tempStorage['servers'][this.currentID]['name'];
-
-  this.name=this.tempStorage['name'];
+       if('i' in window.history.state){
+        this.i = this.state['i'];
+        this.users = this.gameData[this.i]['users'];
+        this.serverName = this.gameData[this.i]['name'];
+      }
+      else{
+        this.router.navigate(['/']);
+      }
   }
 
   joinServer(){
+    if(this.name){
     this.request.joinServer(this.name,this.serverName)
     .subscribe(
       data => {
-        // Handle result
-        console.log(data);
       },
       error => {
         this.error = error;
@@ -63,11 +66,11 @@ export class GameComponent implements OnInit {
       },
       () => {
         this.loading = false;
-        //this.router.navigate(['/games']);
-        // 'onCompleted' callback.
-        // No errors, route to new page here
       }
-    );
-  }
-
+        );
+      }
+      else{ 
+        this.router.navigate(['/register'], { state: {server:this.serverName, i:this.i} });
+      }
+    }
 }

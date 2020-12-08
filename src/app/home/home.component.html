@@ -1,25 +1,45 @@
-<div class="card-body" >
 
+<!-- Header -->
+<!--  --> <app-header></app-header> 
 
-    <div class="logo">
-        <img src="../../../../assets/logo_6.png"  />
-        <span>DrawFromHat</span>
+<!-- Header -->
+
+<!-- Body Start -->
+
+<div class="intro-container">
+    <div class="intro-text">
+        <h2 class="headline">Draw a name</h2>
+        <span>Draw a name from the “hat” or Start a new game.</span>
     </div>
+    <img src="../../../../assets/Design_2.png"  />
+    
+</div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="register()"> 
-        <label for="name">Provide your name</label>
-        <div class="form-container">
-            <div class="form-group">
-                
-                <input type="text"  formControlName="name" class="form-control" />
+<div class="btn-container">
+    <div class="text">
+        <span>Start Game</span>
+    </div>
+</div>
 
-            </div>
-            <button [disabled]="loading" class="btn btn-register">
-                <span *ngIf="loading"  class="spinner-border spinner-border-sm mr-1"></span>
-                Add
-            </button>
-        </div>
-    </form>
+<div class="or-container">
+    <span>
+        Or
+    </span>
 </div>
 
 
+<div class="list-container">
+    <div class="list-row" *ngFor="let game of games | keyvalue: returnZero let i = index" [attr.data-index]="i">
+        <div class="info">
+            <span>{{game.value.name}}</span>
+        </div>
+        <button class="join-btn btn" (click)="openGame(i)" >Join</button>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Body End -->
