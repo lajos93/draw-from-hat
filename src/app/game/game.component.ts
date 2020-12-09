@@ -18,7 +18,7 @@ export class GameComponent implements OnInit {
   state:string;
   i:number;
 
-  name = null;
+  username = null;
   serverName = null;
   users = [];
   message:string;
@@ -47,16 +47,26 @@ export class GameComponent implements OnInit {
        if('i' in window.history.state){
         this.i = this.state['i'];
         this.users = this.gameData[this.i]['users'];
+        this.username = this.gameData[this.i]['username']
         this.serverName = this.gameData[this.i]['name'];
       }
       else{
-        this.router.navigate(['/']);
+        this.sharedDataService.goBack();
       }
   }
 
+  userStyling(user){
+    if(user==this.username){
+      return true;
+    }
+    else{
+    return false;
+    }
+  }
+
   joinServer(){
-    if(this.name){
-    this.request.joinServer(this.name,this.serverName)
+    if(this.username){
+    this.request.joinServer(this.username,this.serverName)
     .subscribe(
       data => {
       },
@@ -73,4 +83,8 @@ export class GameComponent implements OnInit {
         this.router.navigate(['/register'], { state: {server:this.serverName, i:this.i} });
       }
     }
+
+  playGame(i){
+    this.router.navigate(['/games/' + i + '/play-game'], { state: {i:this.i,username:this.username} });
+  }
 }

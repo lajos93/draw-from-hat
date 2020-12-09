@@ -5,7 +5,13 @@
 
 <!-- Body Start -->
 
-<div class="btn-container" (click)="joinServer()">
+<div class="btn-container" (click)="playGame(i)">
+    <div class="text">
+        <span>Play Game</span>
+    </div>
+</div>
+
+<div *ngIf="!username" class="btn-container" (click)="joinServer()">
     <div class="text">
         <span>Join Game</span>
     </div>
@@ -15,8 +21,7 @@
 <div class="list-container">
     <div class="list-row" *ngFor="let user of users">
         <div class="info">
-            <span>{{user}}</span>
-        </div>
+            <span [style.color]="userStyling(user) ? 'red' : blue"> {{user}} </span> 
     </div>
 </div>
 

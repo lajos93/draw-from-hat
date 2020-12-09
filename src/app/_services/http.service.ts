@@ -19,4 +19,9 @@ export class HttpService {
    joinServer(name: string, server: string) {
     return this.http.put<any>(`http://localhost:4000/joinServer`, { user:name, server:server})
    }
+
+   
+   drawCard(server: string, result: any) {
+    return this.http.put<any>(`http://localhost:4000/drawCard`, { server:server, result:result})
+   }
 }

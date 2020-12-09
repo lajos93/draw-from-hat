@@ -71,6 +71,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.gameData[this.i] = data;
+          this.gameData[this.i]['username'] = this.f.name.value;
           this.sharedDataService.changeMessage(this.gameData);       
         },
         error => {
