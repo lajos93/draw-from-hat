@@ -1,4 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%;  }
+body { margin: 0; font-family: -webkit-pictograph !important;}
+
+body { 
+    background-color: #981318 !important;
+    color:#fff !important;
+
+} 
+
+.btn-container{
+    .text{
+        background: #9bcf4d;
+        border: 2px solid #56cf4d;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        margin: 20px;
+        padding: 15px;
+        border-radius: 2px;
+        font-weight: 700;
+    }
+}
+
+.list-container{
+    //height: 100%;
+    box-shadow: 5px 5px 26px 0px rgba(50, 50, 50, 0.1);
+    border-radius: 10px;
+    margin: 20px;
+    .list-row{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        border-bottom: 1px solid #ccc;
+        border:2px solid #ee1318;
+        padding:16px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        .info{
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .join-btn{
+            border-radius: 4px;
+            background: #9bcf4d;
+            border: 2px solid #56cf4d;
+            padding: 8px 20px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+
+        }
+    }
+
+}

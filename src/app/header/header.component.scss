@@ -1,8 +1,18 @@
 mat-toolbar{
     justify-content: space-between;
-    background:#00baf7;
+    background:#b41318;
+    font-family: 'DancingScript', 'arial', sans-serif;
+    border-bottom:2px solid #ee1318;
+  
+    span{
+        font-family: 'DancingScript';
+        color:#ebcf05;
+        margin:5px;
+        position: relative;
+        top: 5px;
+    }
     img{
-        width: 32px;
+        width: 26px;   
         margin-right: 8px;
     }
     .profile{

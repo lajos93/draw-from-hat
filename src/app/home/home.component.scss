@@ -1,8 +1,9 @@
 .intro-container{
     display:flex;
     justify-content: center;
+    font-family: -webkit-pictograph;
     .intro-text{
-        width:70%;
+        
         margin:16px;
     }
     img{
@@ -10,56 +11,20 @@
         height:82px;
         margin:16px;
     }
-}
-
-.btn-container{
-    .text{
-        background: #00baf7;
-        color: #fff;
-        font-size: 20px;
-        text-align: center;
-        margin: 20px;
-        padding: 15px;
-        border-radius: 25px;
+    .headline{
+        font-size: 18px;
+        font-family: -webkit-pictograph;
         font-weight: 700;
     }
 }
+
+
 
 .or-container{
     text-align: center;
     span{
         
-        color: #000;
         font-size: 20px;
     }
 }
 
-.list-container{
-    //height: 100%;
-    box-shadow: 5px 5px 26px 0px rgba(50, 50, 50, 0.1);
-    border-radius: 10px;
-    margin: 20px;
-    .list-row{
-        display:flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 60px;
-        border-bottom: 1px solid #ccc;
-        padding:16px;
-        border-radius: 5px;
-        .info{
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .join-btn{
-            border-radius: 18px;
-            background: #00baf7;
-            padding: 12px 20px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-
-        }
-    }
-
-}

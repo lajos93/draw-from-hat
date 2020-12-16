@@ -22,6 +22,7 @@ export class PlayGameComponent implements OnInit {
   username:string;
   matchedWith:string;
   users = [];
+  usersFormatted = [];
   result = [];
 
   timeoutHandler: any;
@@ -63,51 +64,78 @@ export class PlayGameComponent implements OnInit {
 
   }
 
-  pairArray(a,array,resultArray){
-    //Make sure the item exists
-    var itemFound;
+  pairArray(name,hat){
 
-    for (var i=0; i < array.length; i++) {
-        if (array[i] === a) {
-            itemFound = array[i];
-        }
-    }
-    if(!itemFound){
+    hat = this.organizeArray(hat,this.usersFormatted);
+
+    var found = this.checkIfExists(name,hat);
+
+    if(hat.find(y => y.name === found))    
+      if(hat.find(y => y.name === found).pair!=null)    
          return false;
-    }
+    
+    //sort hat objs by drawn value
+    //count the drawn:true-s
 
-     //Find a random item except the one provided
-    const index = array.indexOf(itemFound);
-        if (index > -1) {
-          array.splice(index, 1);
-        }
+    hat.sort(this.compare)
+    const countTrue = hat.filter((obj) => obj.drawn === true).length;
+       
+    //the pair - making sure not to draw oneself and only choose from those that havent been drawn
+    var matchedWith = hat[Math.floor(Math.random() * (hat.length-(countTrue-1)))]['name'];
 
-    var matchedWith = array[Math.floor(Math.random() * array.length)];
+    //set pair to the drawer
+    var drawer = hat.find(x => x.name === name);
 
-    //Remove the item it just matched with
-    const matchedWithIndex = array.indexOf(matchedWith);
-    if (matchedWithIndex > -1) {
-      array.splice(matchedWithIndex, 1);
-    }
-
-    let paired = {}
-    paired['original'] = itemFound;
-    paired['matchedWith'] = matchedWith;
+    drawer.pair = matchedWith;
 
     //Set matchedWith
     this.matchedWith = matchedWith;
-
-    resultArray.push(paired);
     
-    return [paired,resultArray];  
+    var theMatched = hat.find(y => y.name === matchedWith);
+    theMatched['drawn'] = true;
+
+    return [drawer,hat]
   }
 
-  pairedOnly(a,array,resultArray){
-    return this.pairArray(a,array,resultArray)[0];
+  compare(a,b) {
+    if ( a.drawn < b.drawn ){
+      return -1;
+    }
+    if ( a.drawn > b.drawn ){
+      return 1;
+    }
+    return 0;
+  }
+
+  checkIfExists(name,hat){
+    var foundItem;
+    var i;
+    for (i = 0; i < hat.length; i++) {
+      if(hat[i]['name']==name){
+            foundItem = name;
+      }
+
+    }
+
+    if(!foundItem){
+        return false;
+    }
+
+    return foundItem;
+  }
+
+  organizeArray(original,formatted){
+    var i;
+    for (i = 0; i < original.length; i++) {
+      formatted.push({"name":original[i],"drawn":false,"pair":null});
+    }
+        return formatted;
   }
 
   drawCard(){
-    this.request.drawCard(this.gameData[this.i]['name'],this.pairArray(this.username,this.users,this.result)[0])
+    var stuff = this.pairArray(this.username,this.users)[0];
+    console.log(stuff);
+    this.request.drawCard(this.gameData[this.i]['name'],stuff)
     .subscribe(
       data => {
         console.log(data)
