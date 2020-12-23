@@ -1,25 +1,39 @@
-<div class="card-body" >
 
 
-    <div class="logo">
-        <img src="../../../../assets/logo_6.png"  />
-        <span>DrawFromHat</span>
-    </div>
+<!-- Header -->
+<!--  --> <app-header></app-header> 
 
+<!-- Header -->
+
+<!-- Body Start -->
+
+<div class="list-container">
     <form [formGroup]="loginForm" (ngSubmit)="register()"> 
-        <label for="name">Provide your name</label>
+       
         <div class="form-container">
             <div class="form-group">
-                
+                <label for="name">Provide your name</label>
                 <input type="text"  formControlName="name" class="form-control" />
 
             </div>
-            <button [disabled]="loading" class="btn btn-register">
-                <span *ngIf="loading"  class="spinner-border spinner-border-sm mr-1"></span>
-                Add
+
+            <div *ngIf="!subPage" class="form-group">
+                <label for="name">Provide room name</label>
+                <input type="text"  formControlName="server" class="form-control" />
+            
+            </div>
+           
+            <button [disabled]="loading" class="btn btn-container btn-register">
+                <div class="text">
+                    <span *ngIf="loading"  class="spinner-border spinner-border-sm mr-1 \"></span>
+                    Add
+                </div>
             </button>
+            
         </div>
     </form>
 </div>
 
+<!-- Body End -->
 
+ 

@@ -70,25 +70,31 @@ export class PlayGameComponent implements OnInit {
 
     var found = this.checkIfExists(name,hat);
 
-    if(hat.find(y => y.name === found))    
-      if(hat.find(y => y.name === found).pair!=null)    
-         return false;
+    if(this.checkIfHasPair(found, hat))
+        return false;
     
-    //sort hat objs by drawn value
-    //count the drawn:true-s
-
-    hat.sort(this.compare)
-    const countTrue = hat.filter((obj) => obj.drawn === true).length;
-       
-    //the pair - making sure not to draw oneself and only choose from those that havent been drawn
-    var matchedWith = hat[Math.floor(Math.random() * (hat.length-(countTrue-1)))]['name'];
-
-    //set pair to the drawer
+    //identify drawer
     var drawer = hat.find(x => x.name === name);
 
-    drawer.pair = matchedWith;
+    //make sure the drawer doesnt draw oneself
+    if(!drawer.drawn){
+      var drawerState = drawer.drawn;
+      drawer.drawn = true;
+    }
+
+    //sort hat objs by drawn value
+    //count the drawn:true-s
+    hat.sort(this.compare)
+    const countTrue = hat.filter((obj) => obj.drawn === true).length;
+
+    //the pair - making sure not to draw oneself and only choose from those that havent been drawn yet
+    var matchedWith = hat[Math.floor(Math.random() * (hat.length-(countTrue)))]['name'];
+
+    //set original state back ( part of debugging to avoid self drawing)
+    drawer.drawn = drawerState;
 
     //Set matchedWith
+    drawer.pair = matchedWith;
     this.matchedWith = matchedWith;
     
     var theMatched = hat.find(y => y.name === matchedWith);
@@ -122,6 +128,12 @@ export class PlayGameComponent implements OnInit {
     }
 
     return foundItem;
+  }
+
+  checkIfHasPair(foundItem,hat){
+    if(hat.find(y => y.name === foundItem))    
+      if(hat.find(y => y.name === foundItem).pair!=null)    
+        return true;
   }
 
   organizeArray(original,formatted){

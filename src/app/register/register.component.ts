@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   name = null;
   server = null;
   i:number;
+  subPage: boolean = false;
 
   message:string;
 
@@ -41,19 +42,37 @@ export class RegisterComponent implements OnInit {
     private _location: Location
     ) { }
 
+  isBoolean(val) {
+      return val === false || val === true;
+   }
+
   ngOnInit() {
 
     //Server data
     this.sharedDataService.currentMessage.subscribe(message=>this.gameData = message);
+
     
     this.state$ = this.route.paramMap
     .pipe(map(() => window.history.state));
     this.server = window.history.state;
     this.i = this.server['i'];
 
+    //only show if current page is a subpage of another
+    this.subPage = typeof(this.i)=='number' ? true : false ;
+     
+    //if its subpage set the index of the created room/server
+    if(!this.subPage){
+        this.i = this.gameData.length;
+    }
+
+    console.log(this.i);
+
+
       this.loginForm = this.formBuilder.group({
           name: ['', Validators.required],
+          server:['', Validators.required]
       });
+
   }
 
 
@@ -66,8 +85,13 @@ export class RegisterComponent implements OnInit {
 
     // stop here if form is invalid
     this.loading = true;
-    if(this.server){
-      this.request.joinServer(this.f.name.value,this.server['server'])
+
+    let serverName;
+
+    //if new server is added take name from the field else take current server's name
+    serverName = !this.subPage ? this.f.server.value :  this.server['server'];
+
+      this.request.joinServer(this.f.name.value,serverName)
       .subscribe(
         data => {
           this.gameData[this.i] = data;
@@ -80,9 +104,14 @@ export class RegisterComponent implements OnInit {
         },
         () => {
           this.loading = false;
-          this._location.back();
-        }
-          );
-        }
+
+          if (!this.subPage)
+             this.router.navigate(['/games/' + this.i], { state: {i:this.i} })
+          else
+            this._location.back();
+          
+         }
+      );
+      
   }
 }

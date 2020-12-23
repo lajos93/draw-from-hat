@@ -1,6 +1,4 @@
-.card-body{
-    background:#00baf7;
-    height: 100%;
+
 
     .logo{
         display: flex;
@@ -35,10 +33,18 @@
             
 
         }
-        .btn-register{
-            border:2px solid #fff;
-            color:#fff;
+        .btn-container{
             width: 100%;
+            //margin:0px;
+            padding:0px;
+            .text{
+                margin:0px;
+                height: 54px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+              //  padding:5px;
+            }
         }
     }
-}

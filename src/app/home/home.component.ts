@@ -55,8 +55,12 @@ export class HomeComponent implements OnInit {
     return 0
     }
 
-    openGame(i){
+  openGame(i){
       this.router.navigate(['/games/' + i], { state: {i:i} } );
+  } 
+
+  startGame(){
+    this.router.navigate(['/register'])
   }
 
 

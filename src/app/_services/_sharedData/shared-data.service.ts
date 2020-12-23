@@ -18,6 +18,10 @@ export class SharedDataService {
     this.messageSource.next(message);
   }
 
+  setUser(message: string){
+    //this.messageSource.next(message);
+  }
+
   prepareData(data,procedure = null){
 
     if(procedure == 'quantify'){
